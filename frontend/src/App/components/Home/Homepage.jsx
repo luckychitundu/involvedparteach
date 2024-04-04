@@ -62,7 +62,7 @@ function Homepage() {
               </div>
               <div class="flex-grow">
                 <p class="leading-relaxed text-base">
-                  At KinderJoy, we believe that every day is a learning day and
+                  At InvolvEd, we believe that every day is a learning day and
                   that learning is all around us. As well as being a place of
                   learning, we pride ourselves on ensuring that all children are
                   coming in to a loving, caring environment where they are

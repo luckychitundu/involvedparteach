@@ -21,7 +21,7 @@ const Navbar = () => {
         <div className="md:flex">
           <img className="w-15 h-10 " src={Logo} alt="" />
           <div>
-            <h1 className="text-3xl font-bold text-[#B124A3]">KinderJoy.</h1>
+            <h1 className="text-3xl font-bold text-[#B124A3]">InvolvEd.</h1>
           </div>
         </div>
         <div>

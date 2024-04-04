@@ -17,7 +17,7 @@
 
 .button-2 {
     background-color: 
-    #B124A3;
+    #282983;
     border-radius: 8px;
     border-style: none;
     box-sizing: border-box;
@@ -47,38 +47,6 @@
   
   }
 
-  /* .img-div{
-    background-color: black;
-    height: 120px;
-    width: 120px;
-    left: 45rem;
-    position: absolute;
-    top: 2rem;
-  } */
-
-  /* .login-form{
-     background-color: black;
-    position: absolute;
-    top: 14rem;
-    margin: 0;
-    align-items: center;
-    min-height: fit-content;
-    max-width: fit-content; 
-  } */
-
-  /* .img-div img{
-    width: inherit;
-    height: inherit;
-  } */
-
-  /* .h2-text{
-font-weight: 700;
-font-size: 24px;
-line-height: 30px;
-text-align: center;
-letter-spacing: 0.3px;
-position: absolute;
-  } */
 .label{
 position: relative;
 font-family: 'Mulish';
@@ -98,5 +66,5 @@ top: 2rem;
 }
 
 .main{
-  background-color: #B124A3;
+  background-color: #494be4b9;
 }

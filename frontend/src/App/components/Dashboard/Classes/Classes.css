@@ -37,7 +37,7 @@ color: #292968;
 
   .button-5 {
     background-color: 
-    #B124A3;
+    #070be6;
     border-radius: 8px;
     border-style: none;
     box-sizing: border-box;
@@ -67,7 +67,7 @@ color: #292968;
   .logo-div{
     width: 55px;
     height: 55px;
-    background: #B124A3;
+    background: #070be6;
     border-radius: 10px;
     text-align: center;
     align-self: flex-start;
@@ -85,7 +85,7 @@ color: #292968;
     font-size: 40px;
     line-height: 50px;
     letter-spacing: 0.2px;
-    color: #B124A3;
+    color: #070be6;
   }
 
   .sub-div{
