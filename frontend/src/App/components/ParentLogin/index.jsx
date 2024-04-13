@@ -6,6 +6,7 @@ import { useState } from "react";
 import Nav from "../Home/Nav";
 import kid from "./kids.svg";
 import logo from "./logo.svg";
+import iconn from "../Home/assets/pre-logo.png";
 
 function ParentLogin() {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ function ParentLogin() {
             <div className="sub-card ">
               <img src={kid} alt="parents with kids"></img>
             </div>
-            <h2 className="text text-pink-500">Kinderjoy Parent</h2>
+            <h2 className="text text-pink-500">InvolvEd Parent</h2>
             <h2 className="text2">
               Don't have an account?{" "}
               <Link to="/parent_signup" style={{ color: "#B124A3" }}>
@@ -79,7 +80,10 @@ function ParentLogin() {
           </div>
           <div className="bg-white  rounded-r-3xl">
             <div className="flex items-center justify-center mt-12 mb-4">
-              <img src={logo} alt="logo" />
+              <div style={{boxSizing:5}}>
+              <img src={iconn} alt="logo" />
+              </div>
+             
             </div>
             <div className="flex justify-center">
               <p className="text-2xl font-semibold">Parent Login</p>

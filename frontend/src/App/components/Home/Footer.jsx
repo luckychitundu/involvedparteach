@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <div class="border-t border-solid bg-[#B124A3] mt-4 py-2">
+    <div class="border-t border-solid bg-[#070be6] mt-4 py-2">
       <div class=" px-4 mx-auto">
         <div class="md:flex md:-mx-4 md:items-center">
           <div class="md:flex-1 md:px-4 text-center md:text-left">

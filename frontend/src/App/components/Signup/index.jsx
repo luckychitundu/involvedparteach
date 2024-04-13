@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import icon from "../Login/icon.svg"
+import icon from "../Home/assets/parent with kids.png";
 import { TeacherContext } from "../Context/teacher-context";
 import Nav from "../Home/Nav";
 import "./signup.css";
@@ -17,12 +17,10 @@ function Signup({ onLogin }) {
         <div className="flex justify-center">
           <div className="main-container bg-white">
             <div className="card-one sm:block hidden">
-              <div className="sub-card">
-                <img
-                  src={icon}
-                  alt="image"></img>
-              </div>
-              <h2 className="text">Kinderjoy Teacher</h2>
+            <img>src={icon}
+                  alt="image"</img>
+
+              <h2 className="text">InvolvEd Teacher</h2>
               <h2 className="text2">
                 Have an account?{" "}
                 <Link to="/login" style={{ color: "#B124A3" }}>

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "./ParentSignup.css";
 import Nav from "../Home/Nav";
+import icon from "../Home/assets/parent with kids.png";
 
 function ParentSignup() {
   const [parent, setParent] = useState([]);
@@ -54,10 +55,10 @@ function handleClose(){
         <div className="card-one sm:block hidden">
           <div className="sub-card">
             <img
-              src="https://i.ibb.co/rkY319L/Screenshot-2023-01-01-at-01-08-52.png"
+              src={icon}
               alt="image"></img>
           </div>
-          <h2 className="text">Kinderjoy Parent</h2>
+          <h2 className="text">InvolvEd Parent</h2>
           <h2 className="text2">
             Already have an account?{" "}
             <Link to="/parent_login" style={{ color: "#B124A3" }}>
