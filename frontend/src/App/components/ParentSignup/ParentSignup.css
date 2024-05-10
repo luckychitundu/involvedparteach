@@ -87,7 +87,7 @@
  
   .button-1 {
     background-color: 
-    #B124A3;
+    #161875;
     border-radius: 8px;
     border-style: none;
     box-sizing: border-box;
@@ -118,7 +118,7 @@
   
   .button-1:hover,
   .button-1:focus {
-    background-color: #B124A3;;
+    background-color: #070be6;;
   }
     /* bottom: 3rem;
     left: 15.6rem; */

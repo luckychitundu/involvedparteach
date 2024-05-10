@@ -32,7 +32,7 @@ export default function Parents() {
           <h1 className="text-xl font-semibold text-pink-500">Parents</h1>
           <p className="mt-2 text-sm text-lime-900">
             A list of all the parents in your account including their name and
-            phone number andnpm start others.
+            phone number and other credentials.
           </p>
         </div>
       </div>

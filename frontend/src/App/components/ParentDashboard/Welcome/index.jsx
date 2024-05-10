@@ -11,7 +11,7 @@ function Welcome() {
 
   <div className="h-48 m-auto w-4/5 bg-[#B124A3] rounded-md flex flex-row justify-between">
         <div className="m-auto p-5 h-full w-1/2 text-white">
-            <div>kindergarten management portal</div>
+            <div>InvolvEd management portal</div>
             <h1 className="text-5xl">Welcome Parent</h1>
             <p>Hello Parent</p>
         </div>

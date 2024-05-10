@@ -6,6 +6,7 @@ import "../Modal/modal.css";
 import Nav from "../Home/Nav.jsx";
 import icon from "./icon.svg";
 import { TeacherContext } from "../Context/teacher-context";
+
 function Login() {
   const { onSubmit, modal,setDone,done } = useContext(TeacherContext);
 
@@ -43,13 +44,13 @@ function Login() {
             <div className="sub-card">
               <img src={icon} alt="image"></img>
             </div>
-            <h2 className="text">Kinderjoy Admin</h2>
+            <h2 className="text">InvolvEd Admin</h2>
           </div>
           <div className="bg-white w-full m-3">
             <div className="m-10 flex flex-col items-center">
               <img
                 className="h-20 w-20"
-                src="https://i.ibb.co/qDhqYnx/Screenshot-2023-01-02-at-23-26-59.png"
+                src={icon}
                 alt=""
               />
               <h2 className="text-2xl m-2">Teacher Login</h2>

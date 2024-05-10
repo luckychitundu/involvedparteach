@@ -16,16 +16,17 @@ const Navbar = () => {
   };
 
   return (
+    <>
     <div className=" flex  flex-row justify-between items-center h-24  mx-auto px-8 text-white">
       <div>
         <div className="md:flex">
           <img className="w-15 h-10 " src={Logo} alt="" />
           <div>
-            <h1 className="text-3xl font-bold text-[#B124A3]">KinderJoy.</h1>
+            <h1 className="text-3xl font-bold text-[#070be6]">InvolvEd.</h1>
           </div>
         </div>
         <div>
-          <h2 class="w-full text-xs font-medium title-font text-[#B124A3] tracking-widest title-font mb-1">
+          <h2 class="w-full text-xs font-medium title-font text-[#070be6] tracking-widest title-font mb-1">
             Kindergarten Management Portal
           </h2>
         </div>
@@ -41,7 +42,7 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="black"
-                class="w-6 h-6 outline outline-1 text-[#B124A3] md  "
+                class="w-6 h-6 outline outline-1 text-[#070be6] md  "
               >
                 <path
                   stroke-linecap="round"
@@ -60,7 +61,7 @@ const Navbar = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-[#B124A3] py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-cyan-600">
+            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-[#070be6] py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-cyan-600">
               <Menu.Item>
                 {({ active }) => (
                   <Link
@@ -141,7 +142,7 @@ const Navbar = () => {
         </Menu>
       </button>
 
-      <ul className="lg:block lg:flex bg-[#B124A3] rounded-md sm:hidden md:hidden hidden ">
+      <ul className="lg:block lg:flex bg-[#070be6] rounded-md sm:hidden md:hidden hidden ">
         <li onClick={() => navigate("/")} className="p-4 cursor-pointer">
           Home
         </li>
@@ -164,7 +165,15 @@ const Navbar = () => {
           Teacher Signup
         </li>
       </ul>
+
+
     </div>
+    <div className="flex flex-col text-center w-full mb-8">
+          <span className="text-3xl font-bold text-[#070be6]">
+            All aboard for fun and learning
+          </span>
+        </div>
+    </>
   );
 };
 
