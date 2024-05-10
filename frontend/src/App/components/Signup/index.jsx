@@ -1,11 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import icon from "../Home/assets/parent with kids.png";
 import { TeacherContext } from "../Context/teacher-context";
 import Nav from "../Home/Nav";
 import "./signup.css";
-function Signup({ onLogin }) {
+
+function Signup() {
   const { register, handleSubmit } = useForm();
   const { onSubmition, modal } = useContext(TeacherContext);
 
@@ -17,9 +18,7 @@ function Signup({ onLogin }) {
         <div className="flex justify-center">
           <div className="main-container bg-white">
             <div className="card-one sm:block hidden">
-            <img>src={icon}
-                  alt="image"</img>
-
+              <img src={icon} alt="image" />
               <h2 className="text">InvolvEd Teacher</h2>
               <h2 className="text2">
                 Have an account?{" "}
@@ -31,7 +30,7 @@ function Signup({ onLogin }) {
             <div className="bg-white w-full m-3">
               <h2 className="text-2xl text-center m-2 bold">Teacher Registration</h2>
 
-              {modal ? <div className="text-center text-white italic bg-[#B124A3] rounded-md">Signup sucessfull</div> : null}
+              {modal ? <div className="text-center text-white italic bg-[#B124A3] rounded-md">Signup successful</div> : null}
               <form
                 className="grid grid-cols-1 gap-3 m-10"
                 onSubmit={handleSubmit(onSubmition)}>
@@ -54,7 +53,7 @@ function Signup({ onLogin }) {
                 <input
                   id="last_name"
                   className="border rounded-md p-2"
-                  type="test"
+                  type="text"
                   name="last_name"
                   placeholder="Enter your last name..."
                   {...register("last_name")}
@@ -79,7 +78,7 @@ function Signup({ onLogin }) {
                   id="password"
                   className="border rounded-md p-2"
                   type="password"
-                  name="phone_number"
+                  name="password"
                   placeholder="Enter your password..."
                   {...register("password")}
                 />
