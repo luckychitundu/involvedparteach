@@ -6,7 +6,7 @@ function Reviews() {
       <section className="text-gray-600 body-font">
         <div className="px-8 py-6 mx-auto max-w-7xl">
           <h1 className="text-3xl font-semibold text-blue-600 mb-8 text-center">
-            What Our Users Say
+            What Our Users Are Saying
           </h1>
           <div className="flex flex-wrap -m-4">
             {/* Testimonial 1 */}
@@ -28,10 +28,10 @@ function Reviews() {
                 <div className="inline-flex items-center">
                   <span className="flex-grow flex flex-col">
                     <span className="text-lg font-medium text-blue-600">
-                      Vitalis Wagome
+                      Jane Pre-school
                     </span>
                     <span className="text-gray-500 text-sm">
-                      CEO @ InvolvEd
+                      Montgomery, Al
                     </span>
                   </span>
                 </div>
@@ -56,10 +56,10 @@ function Reviews() {
                 <div className="inline-flex items-center">
                   <span className="flex-grow flex flex-col">
                     <span className="text-lg font-medium text-blue-600">
-                      Constant
+                      Coach Pre-school
                     </span>
                     <span className="text-gray-500 text-sm">
-                      CTO @ InvolvEd
+                      Futon, GA
                     </span>
                   </span>
                 </div>

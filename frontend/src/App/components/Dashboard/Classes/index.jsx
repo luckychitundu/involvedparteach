@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../../Modal/Modal";
-import "./Classes.css";
 
 function Classes() {
   const [classroom, setClassroom] = useState([]);
@@ -17,59 +16,39 @@ function Classes() {
       Authorization: `Bearer ${token}`,
     },
   };
+
+  // Fetch assigned classroom
   useEffect(() => {
     axios
       .get(`/teachers/${parseInt(teacher_id)}`, config)
       .then((data) => setClassroom(data.data.classroom));
   }, [update]);
-  function asignClass(id) {
-    const data = {
-      teacher_id: parseInt(teacher_id),
-    };
+
+  // Assign class to teacher
+  function assignClass(id) {
+    const data = { teacher_id: parseInt(teacher_id) };
     fetch(`/classrooms/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body:JSON.stringify({
-        teacher_id: parseInt(teacher_id)
-      }
-      )
-    }).then(res=>res.json())
-      .then((res) => {
-        console.log(res.data);
-        setUpdate((update) => !update);
-      })
-      .catch((e) => console.log(e.message));
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then(() => setUpdate(!update))
+      .catch((e) => console.error(e.message));
   }
 
+  // Fetch available classes
   useEffect(() => {
     axios
-      .get("/classrooms", {
-        headers: {
-          "content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => setAvailableClasses(res.data));
+      .get("/classrooms", config)
+      .then((res) => setAvailableClasses(res.data))
+      .catch((e) => console.error(e.message));
   }, []);
-  console.log(availableClasses);
 
-  const list = availableClasses.map((c) => {
-    return (
-      <div className="flex flex-col rounded-md h-28 shadow-lg text-center">
-        <span>{c.name}</span>
-        <span>current teacher:{c.teacher.career_name}</span>
-        <button
-          onClick={() => asignClass(c.id)}
-          className="outline outline-1  hover:bg-[#b124A3] rounded-md hover:text-white m-3 text-[#b124A3]">
-          Assign to me
-        </button>
-      </div>
-    );
-  });
-
+  // Fetch students of a class
   function handleClick(id) {
     fetch(`/classrooms/${id}`, {
       headers: {
@@ -78,35 +57,61 @@ function Classes() {
       },
     })
       .then((res) => res.json())
-      .then((res) => setModalData(res.students));
+      .then((res) => setModalData(res.students))
+      .catch((e) => console.error(e.message));
   }
 
-  if (classroom === null) {
+  const list = availableClasses.map((c) => (
+    <div
+      key={c.id}
+      className="flex flex-col justify-between rounded-lg border border-gray-300 p-4 shadow-md transition hover:shadow-lg"
+    >
+      <h3 className="text-lg font-semibold text-gray-800">{c.name}</h3>
+      <p className="text-sm text-gray-500">
+        Current Teacher: {c.teacher.career_name}
+      </p>
+      <button
+        onClick={() => assignClass(c.id)}
+        className="mt-3 rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
+      >
+        Assign to Me
+      </button>
+    </div>
+  ));
+
+  if (!classroom) {
     return (
-      <div>
-        <h1 className="text-center">Select a class you will be teaching</h1>
-        <h1 className="mt-3 text-center text-2xl">Available classes</h1>
-        <div className="grid sm:grid-cols-3">{list}</div>
+      <div className="px-6 py-8">
+        <h1 className="text-center text-2xl font-bold text-gray-800">
+          Select a Class You Will Be Teaching
+        </h1>
+        <h2 className="mt-6 text-center text-xl text-gray-600">
+          Available Classes
+        </h2>
+        <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {list}
+        </div>
       </div>
     );
   } else {
     return (
-      <div className="classes-page">
-        <h1>Classes</h1>
-        <div className="sub-div">
-          <div className="class-card">
-            <div className="logo-div">
-              <h2 className="header">KD</h2>
+      <div className="p-6">
+        <h1 className="mb-6 text-2xl font-bold text-gray-800">Classes</h1>
+        <div className="flex flex-col items-center">
+          <div className="w-80 rounded-lg border border-gray-300 p-6 shadow-md">
+            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white">
+              <span className="text-2xl font-bold">KD</span>
             </div>
-            <h2 className="header-2">{classroom.name}</h2>
-            <p></p>
+            <h2 className="text-xl font-semibold text-gray-800">
+              {classroom.name}
+            </h2>
             <button
-              className="button-5"
-              type="submit"
+              className="mt-4 w-full rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
               onClick={() => {
                 setModal(true);
                 handleClick(classroom.id);
-              }}>
+              }}
+            >
               See Students
             </button>
           </div>

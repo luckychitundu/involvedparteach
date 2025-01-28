@@ -11,7 +11,7 @@ function Footer() {
             <p className="text-sm mb-4">
               Empowering education with technology. Join us in shaping the future of learning.
             </p>
-            <p className="text-sm">© 2024 InvolvEd. All rights reserved.</p>
+            <p className="text-sm">© 2025 InvolvEd. All rights reserved.</p>
           </div>
 
           {/* Quick Links */}

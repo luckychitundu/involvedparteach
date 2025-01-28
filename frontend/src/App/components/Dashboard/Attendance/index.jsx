@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
 function Attendance() {
   const [attend, setAttend] = useState([]);
   const [dates, setDates] = useState(null);
@@ -10,147 +11,163 @@ function Attendance() {
   const [modal2, setModal2] = useState(null);
   const [classroom, setClassroom] = useState({});
   const [kid, setKid] = useState([]);
+
   const token = localStorage.getItem("teacherToken");
+  const teacher_id = localStorage.getItem("teacher");
+
   const config = {
     headers: {
       "content-type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   };
-  const teacher_id = localStorage.getItem("teacher");
+
   useEffect(() => {
     axios
       .get(`/teachers/${teacher_id}`, config)
       .then((res) => {
         setClassroom(res.data.classroom);
         setKid(res.data.classroom.students);
-      });
-  }, []);
+      })
+      .catch((error) => console.error("Error fetching teacher data:", error));
+  }, [teacher_id, config]);
 
   useEffect(() => {
     axios
       .get("/attendances", config)
-      .then((res) => setAttend(res.data));
-  }, []);
+      .then((res) => setAttend(res.data))
+      .catch((error) => console.error("Error fetching attendance data:", error));
+  }, [config]);
 
-  async function takeAttendance(p) {
+  const takeAttendance = async (date) => {
     setModal2(false);
-    const { data } = await axios.get("/attendances");
-    const ans = data.filter((i) => i.date === p);
-    if (ans.length === 0) {
-      let register = kid.map((k, i) => {
-        return (
-          <li key={i} className="border m-2 grid grid-cols-3 rounded-md p-5">
-            <span>{`${k.first_name} ${k.second_name}`}</span>
+    try {
+      const { data } = await axios.get("/attendances");
+      const existingAttendance = data.filter((item) => item.date === date);
+
+      if (existingAttendance.length === 0) {
+        const attendanceList = kid.map((student, index) => (
+          <li
+            key={index}
+            className="border m-2 grid grid-cols-3 rounded-lg p-5 shadow-md hover:shadow-lg"
+          >
+            <span className="font-medium text-gray-700">{`${student.first_name} ${student.second_name}`}</span>
             <button
-              onClick={(e) => handlePresent(e, k)}
-              className="outline outline-1 text-sky-600 hover:text-white hover:bg-sky-600 px-1 h-10 m-2 rounded-md">
+              onClick={(e) => handleAttendance(e, student, "Present")}
+              className="outline outline-1 text-blue-600 hover:text-white hover:bg-blue-600 px-3 h-10 rounded-md"
+            >
               Present
             </button>
             <button
-              onClick={(e) => handleAbsent(e, k)}
-              className="outline outline-1 text-red-500 hover:text-white hover:bg-red-600 px-1 h-10 m-2 rounded-md">
+              onClick={(e) => handleAttendance(e, student, "Absent")}
+              className="outline outline-1 text-red-600 hover:text-white hover:bg-red-600 px-3 h-10 rounded-md"
+            >
               Absent
             </button>
           </li>
-        );
-      });
-      setData(register);
-    } else {
-      setData("attendance already taken");
+        ));
+        setData(attendanceList);
+      } else {
+        setData("Attendance already taken for this date.");
+      }
+    } catch (error) {
+      console.error("Error taking attendance:", error);
     }
-  }
+  };
 
-  function handlePresent(e, k) {
-    let myData = {
+  const handleAttendance = (e, student, status) => {
+    const attendanceData = {
       classroom_id: classroom.id,
-      student_id: k.id,
-      student_name: k.first_name,
-      status: e.target.innerText,
+      student_id: student.id,
+      student_name: student.first_name,
+      status,
       date: dates,
     };
 
     e.target.parentElement.style.display = "none";
-    return axios
-      .post("/attendances", myData, config)
-      .then((res) => console.log(res));
-  }
-  function handleAbsent(e, k) {
-    let myData = {
-      classroom_id: classroom.id,
-      student_id: k.id,
-      student_name: k.first_name,
-      status: e.target.innerText,
-      date: dates,
-    };
-    e.target.parentElement.style.display = "none";
-    return axios
-      .post("/attendances", myData, config)
-      .then((res) => console.log(res));
-  }
+    axios
+      .post("/attendances", attendanceData, config)
+      .then((res) => console.log(res))
+      .catch((error) => console.error("Error recording attendance:", error));
+  };
 
   return (
-    <div className="w-4/5 flex items-center flex-col m-auto">
-      <button
-        onClick={() => {
-          setModal2(true);
-          setModal3(false);
-        }}
-        className="rounded-md shadow-md h-10 outline outline-1 text-pink-500 mt-4 mr-4 px-2 sm:float-right hover:text-white hover:bg-pink-500">
-        Take Attendance
-      </button>
-      <button
-        onClick={() => {
-          setModal3(true);
-          setModal2(false);
-        }}
-        className="rounded-md shadow-md h-10 outline outline-1 text-pink-500 mt-4 mr-4 px-2 sm:float-right hover:text-white hover:bg-pink-500">
-        View Attendance
-      </button>
-      {modal3 ? (
-        <div className="flex flex-col p-8">
-          <p className="text-2xl font-serif m-2 text-center">
+    <div className="w-4/5 flex flex-col items-center m-auto">
+      <div className="flex justify-end w-full mt-4 space-x-4">
+        <button
+          onClick={() => {
+            setModal2(true);
+            setModal3(false);
+          }}
+          className="rounded-lg shadow-md h-10 px-4 outline outline-1 text-blue-600 hover:text-white hover:bg-blue-600"
+        >
+          Take Attendance
+        </button>
+        <button
+          onClick={() => {
+            setModal3(true);
+            setModal2(false);
+          }}
+          className="rounded-lg shadow-md h-10 px-4 outline outline-1 text-blue-600 hover:text-white hover:bg-blue-600"
+        >
+          View Attendance
+        </button>
+      </div>
+
+      {modal3 && (
+        <div className="flex flex-col items-center mt-8 p-6 w-full max-w-lg">
+          <p className="text-2xl font-bold text-gray-800 mb-4">
             Select a day to view its attendance
           </p>
           <input
-            className="border rounded-md h-10 m-2"
+            className="border rounded-lg h-10 w-full px-3 mb-4"
             type="date"
             onChange={(e) => setDates(e.target.value)}
           />
           <button
             onClick={() => setModal(true)}
-            className="text-pink-500 outline outline-1 hover:text-white hover:bg-pink-500 px-6 ml-2 m-2 rounded-md">
-            submit
+            className="rounded-lg px-6 h-10 text-white bg-blue-600 hover:bg-blue-700"
+          >
+            Submit
           </button>
         </div>
-      ) : null}
-      {modal2 ? (
-        <div className="flex  flex-col p-5 mt-7">
-          <p>enter the day you want to fill attendance</p>
+      )}
+
+      {modal2 && (
+        <div className="flex flex-col items-center mt-8 p-6 w-full max-w-lg">
+          <p className="text-xl font-medium text-gray-700 mb-4">
+            Enter the date for attendance
+          </p>
           <input
-            className="border rounded-md h-10 m-2"
+            className="border rounded-lg h-10 w-full px-3 mb-4"
             type="date"
             onChange={(e) => setDates(e.target.value)}
           />
           <button
             onClick={() => takeAttendance(dates)}
-            className="text-pink-500 outline outline-1 m-2 hover:text-white hover:bg-pink-500 px-6 ml-2 rounded-md">
-            submit
+            className="rounded-lg px-6 h-10 text-white bg-blue-600 hover:bg-blue-700"
+          >
+            Submit
           </button>
         </div>
-      ) : null}
-      {true ? <ul className="sm:mt-8 p-4">{data}</ul> : null}
+      )}
 
-      {modal ? (
-        <li className="border m-2 rounded-md p-5">
-          This is attendance for date {dates} --click view for more details
+      <ul className="mt-8 w-full">{data}</ul>
+
+      {modal && (
+        <li className="border m-2 p-5 rounded-lg shadow-md hover:shadow-lg">
+          <p>
+            Attendance for date <strong>{dates}</strong> — click below to view
+            more details.
+          </p>
           <Link
             to={`${dates}`}
-            className="rounded-md  float-right border outline outline-1 px-6 hover:text-white hover:bg-pink-500 text-pink-500 p-1">
-            view
+            className="float-right rounded-lg border px-6 py-1 outline outline-1 text-blue-600 hover:text-white hover:bg-blue-600"
+          >
+            View
           </Link>
         </li>
-      ) : null}
+      )}
     </div>
   );
 }

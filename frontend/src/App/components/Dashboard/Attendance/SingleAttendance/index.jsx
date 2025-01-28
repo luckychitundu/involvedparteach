@@ -15,40 +15,49 @@ function SingleAttendance() {
   };
 
   useEffect(() => {
-    axios.get(`/teachers/${id}`, config).then((res) => {
-      const arr = [];
-      for (let data of res.data.classroom.attendances) {
-        if (data.date == date) {
-          arr.push(data);
-        } else {
-          console.log("not possible");
-        }
-      }
+    axios
+      .get(`/teachers/${id}`, config)
+      .then((res) => {
+        const attendanceForDate = res.data.classroom.attendances.filter(
+          (data) => data.date === date
+        );
+        setAllAttendance(attendanceForDate);
+      })
+      .catch((error) => console.error("Error fetching attendance:", error));
+  }, [id, date, config]);
 
-      setAllAttendance(arr);
-    });
-  }, []);
   return (
-    <ul className="sm:mt-8 p-4 w-4/5 m-auto">
-      <p className="text-2xl font-extrabold text-center">
-        List of student register for date {date}{" "}
-      </p>
+    <div className="mt-10 px-6">
+      <h1 className="mb-6 text-center text-2xl font-extrabold text-gray-800">
+        Student Attendance for {date}
+      </h1>
       {allAttendance.length < 1 ? (
-        <div>no attendance for this date</div>
+        <div className="text-center text-lg text-gray-600">
+          No attendance records for this date.
+        </div>
       ) : (
-        allAttendance.map((item, i) => {
-          return (
+        <ul className="mx-auto w-full max-w-4xl space-y-4">
+          {allAttendance.map((item, i) => (
             <li
               key={i}
-              className="border m-2 rounded-md p-5 flex justify-around">
-              <span>{i + 1}</span>
-              <span>{item.student_name}</span>
-              <span>{item.status}</span>
+              className="flex items-center justify-between rounded-lg border border-gray-300 bg-white p-4 shadow-md transition hover:shadow-lg"
+            >
+              <span className="font-medium text-gray-700">{i + 1}</span>
+              <span className="text-gray-800">{item.student_name}</span>
+              <span
+                className={`rounded-full px-3 py-1 text-sm font-semibold ${
+                  item.status === "Present"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-400 text-white"
+                }`}
+              >
+                {item.status}
+              </span>
             </li>
-          );
-        })
+          ))}
+        </ul>
       )}
-    </ul>
+    </div>
   );
 }
 
