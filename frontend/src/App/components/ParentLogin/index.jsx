@@ -1,21 +1,12 @@
-import React from "react";
-import "./ParentLogin.css";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import Nav from "../Home/Nav";
-import kid from "./kids.svg";
-import logo from "./logo.svg";
-import parentkids from "./parentkids.png";
 
 function ParentLogin() {
   const navigate = useNavigate();
   const [done, setDone] = useState(false);
-  // Make sure to install useForm using npm to avoid errors
-  const {
-    register,
-    handleSubmit,
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const [modal, setModal] = useState(false);
 
   function handleNotification() {
@@ -31,7 +22,7 @@ function ParentLogin() {
   }
 
   function onSubmit(data) {
-    setDone(true)
+    setDone(true);
     fetch("/parent_login", {
       method: "POST",
       headers: {
@@ -43,8 +34,8 @@ function ParentLogin() {
         res.json().then((res) => {
           localStorage.setItem("jwt", res.jwt);
           localStorage.setItem("parent", `${res.parent.id}`);
-          localStorage.setItem("parent_data", JSON.stringify(res.parent))
-          setDone(false)
+          localStorage.setItem("parent_data", JSON.stringify(res.parent));
+          setDone(false);
           return handleNotification();
         });
       } else {
@@ -52,79 +43,109 @@ function ParentLogin() {
       }
     });
   }
+
   return (
-    <div className="main w-screen h-screen bg-[#B124A3]">
-      <Nav />
-      <hr className="border border-1"></hr>{" "}
-      {modal ? (
-        <div className=" bg-pink-200 text-center h-auto  m-auto ">
+    <>
+    <Nav />
+    <div className="w-screen min-h-screen bg-blue-600">
+      {modal && (
+        <div className="bg-blue-600 text-center py-2">
           Login Successful
         </div>
-      ) : null}
-      <div className=" flex items-center justify-center ">
-
-        <div className="main-container bg-white">
-          <div className="card-one sm:block hidden">
-            <div className="sub-card ">
-              <img src={kid} alt="parents with kids"></img>
-            </div>
-            <h2 className="text text-pink-500">InvolvEd Parent</h2>
-            <h2 className="text2">
-              Don't have an account?{" "}
-              <Link to="/parent_signup" style={{ color: "#B124A3" }}>
-                Sign Up Here
-              </Link>
-            </h2>
+      )}
+      <div className="flex items-center justify-center">
+        <div className="bg-white w-full sm:w-96 rounded-xl p-8 shadow-lg mt-10">
+          {/* Logo */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-extrabold text-white">InvolvEd</h1>
           </div>
-          <div className="bg-white  rounded-r-3xl">
-            <div className="flex items-center justify-center mt-12 mb-4">
-              <img src={logo} alt="logo" />
-            </div>
-            <div className="flex justify-center">
-              <p className="text-2xl font-semibold">Parent Login</p>
-            </div>
-            <div className="flex justify-center mt-2 mb-7">
-              <p className="text-[#9FA2B4]">Enter your credentials below</p>
-            </div>
 
-            <form
-              className="grid grid-cols-1 gap-3 m-10"
-              onSubmit={handleSubmit(onSubmit)}>
-              <label className="">PHONENUMBER</label>
+          {/* Form Title */}
+          <div className="text-center mb-4">
+            <p className="text-2xl font-semibold">Parent Login</p>
+            <p className="text-[#9FA2B4]">Enter your credentials below</p>
+          </div>
+
+          {/* Form */}
+          <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
+            {/* Phone Number */}
+            <div>
+              <label className="block text-sm font-semibold">Phone Number</label>
               <input
                 id="phone_number"
-                className="border rounded-md p-3"
+                className="w-full border rounded-md p-3"
                 type="number"
                 name="phone_number"
                 placeholder="Phone number"
-                {...register("phone_number", {
-                  required: true,
-                })}
+                {...register("phone_number", { required: true })}
               />
-              <label className="">PASSWORD</label>
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="block text-sm font-semibold">Password</label>
               <input
                 id="password"
-                className="border rounded-md p-3"
+                className="w-full border rounded-md p-3"
                 type="password"
                 name="password"
-                placeholder="Enter your password..."
-                {...register("password", {
-                  required: true,
-                })}
+                placeholder="Enter your password"
+                {...register("password", { required: true })}
               />
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex justify-center mt-4">
               <button
-                className="px-3 p-2 flex bg-[#B124A3] justify-center text-white rounded-md"
-                type="submit">
-                   {done ?<svg
-                  class="animate-spin h-5 w-5 outline outline-3 mr-1 rounded-full"
-                  viewBox="0 0 24 24"></svg>:null}
-             <span>Login</span>
+                className="w-full bg-blue-600 text-white py-2 rounded-md flex items-center justify-center"
+                type="submit"
+              >
+                {done && (
+                  <svg
+                    className="animate-spin h-5 w-5 mr-2"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      className="opacity-25"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M4 12a8 8 0 1116 0A8 8 0 014 12z"
+                    />
+                  </svg>
+                )}
+                <span>Login</span>
               </button>
-            </form>
+            </div>
+          </form>
+
+          {/* Sign Up Link */}
+          <div className="text-center mt-4">
+            <p className="text-sm">
+              Don't have an account?{" "}
+              <Link to="/parent_signup" className="text-white font-semibold">
+                Sign Up Here
+              </Link>
+            </p>
           </div>
         </div>
       </div>
+
+      <div className="mt-28 border-t border-gray-700 pt-8 text-center">
+          <p className="text-sm">
+            <a href="#" className="hover:underline">Terms of Service</a> |{" "}
+            <a href="#" className="hover:underline">Privacy Policy</a>
+          </p>
+        </div>
     </div>
+    </>
   );
 }
 

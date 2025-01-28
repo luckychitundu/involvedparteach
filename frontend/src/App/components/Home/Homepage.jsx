@@ -15,81 +15,67 @@ function Homepage() {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  // Use useEffect to automatically toggle images every 3 seconds
+  // Use useEffect to automatically toggle images every 5 seconds
   useEffect(() => {
-    const interval = setInterval(toggleImage, 3000); // Change image every 3 seconds
+    const interval = setInterval(toggleImage, 5000); // Change image every 5 seconds
 
     // Clean up the interval when the component unmounts
     return () => clearInterval(interval);
   }, []); // Empty dependency array to run the effect only once on component mount
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center"
-      style={{
-        backgroundImage: `url(${images[currentImageIndex]})`,
-      }}
-    >
-      <div className="px-6 mx-auto">
-        <div className="flex flex-wrap -m-4">
-          <div className="p-4 md:w-1/3">
-            <div className="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-              <div className="flex items-center mb-3">
-                <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-[#070be6] text-white flex-shrink-0">
-                  {/* Your SVG code for icon */}
-                </div>
-                <h2 className="text-[#070be6] text-lg title-font font-medium">
-                  Our Vision
-                </h2>
-              </div>
-              <div className="flex-grow">
-                <p className="leading-relaxed text-base">
-                  Positive, caring relationships based on trust and respect, are
-                  at the heart of our philosophy.
-                </p>
-              </div>
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out"
+        style={{
+          backgroundImage: `url(${images[currentImageIndex]})`,
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/80"></div>
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10 px-6 py-24">
+        <div className="text-center text-white mb-12">
+          <h1 className="text-5xl font-extrabold mb-4 animate-fade-in">
+            Welcome to InvolvEd
+          </h1>
+          <p className="text-xl max-w-2xl mx-auto animate-fade-in">
+            Building positive, caring relationships that nurture growth and
+            respect.
+          </p>
+        </div>
+
+        {/* Cards Section */}
+        <div className="flex flex-wrap justify-center gap-8">
+          {[
+            {
+              title: "Our Vision",
+              description:
+                "Positive, caring relationships based on trust and respect, are at the heart of our philosophy.",
+            },
+            {
+              title: "Mission",
+              description:
+                "At InvolvEd, we believe that every day is a learning day, where children feel valued and cared for.",
+            },
+            {
+              title: "Motto",
+              description:
+                "Transforming lives by creating a nursery that feels like home with an extended supportive family.",
+            },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="bg-white/80 rounded-2xl shadow-lg hover:shadow-xl transition transform hover:scale-105 p-8 max-w-sm"
+            >
+              <h2 className="text-2xl font-semibold text-blue-600 mb-4">
+                {item.title}
+              </h2>
+              <p className="text-gray-700">{item.description}</p>
             </div>
-          </div>
-          <div className="p-4 md:w-1/3">
-            <div className="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-              <div className="flex items-center mb-3">
-                <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-[#070be6] text-white flex-shrink-0">
-                  {/* Your SVG code for icon */}
-                </div>
-                <h2 className="text-[#070be6] text-lg title-font font-medium">
-                  Mission
-                </h2>
-              </div>
-              <div className="flex-grow">
-                <p className="leading-relaxed text-base">
-                  At InvolvEd, we believe that every day is a learning day and
-                  that learning is all around us. As well as being a place of
-                  learning, we pride ourselves on ensuring that all children are
-                  coming in to a loving, caring environment where they are
-                  valued and listened to.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="p-4 md:w-1/3">
-            <div className="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-              <div className="flex items-center mb-3">
-                <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-[#070be6] text-white flex-shrink-0">
-                  {/* Your SVG code for icon */}
-                </div>
-                <h2 className="text-#070be6] text-lg title-font font-medium">
-                  Motto
-                </h2>
-              </div>
-              <div className="flex-grow">
-                <p className="leading-relaxed text-base">
-                  To transform the lives of the children and families we work
-                  with, through creating a nursery which feels like home with an
-                  extended and supportive family environment.
-                </p>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

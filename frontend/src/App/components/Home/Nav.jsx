@@ -1,8 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Logo from "../Home/assets/pre-logo.png";
 import { Transition, Menu } from "@headlessui/react";
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -11,168 +9,107 @@ function classNames(...classes) {
 const Navbar = () => {
   const [nav, setNav] = useState(true);
   const navigate = useNavigate();
-  const handleNav = () => {
-    setNav(!nav);
-  };
 
   return (
     <>
-    <div className=" flex  flex-row justify-between items-center h-24  mx-auto px-8 text-white">
-      <div>
-        <div className="md:flex">
-          <img className="w-15 h-10 " src={Logo} alt="" />
-          <div>
-            <h1 className="text-3xl font-bold text-[#070be6]">InvolvEd.</h1>
-          </div>
-        </div>
+      {/* Navbar Container */}
+      <div className="flex justify-between items-center h-24 mx-auto px-8 text-white bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 shadow-md">
+        {/* Logo Section */}
         <div>
-          <h2 class="w-full text-xs font-medium title-font text-[#070be6] tracking-widest title-font mb-1">
+          <a href="/">
+          <h1 className="text-3xl font-extrabold text-white tracking-wide">
+            InvolvEd.
+          </h1>
+          </a>         
+
+          <h2 className="text-xs font-medium tracking-widest text-blue-200">
             Kindergarten Management Portal
           </h2>
         </div>
+
+        {/* Mobile Hamburger Menu */}
+        <button className="lg:hidden">
+          <Menu as="div" className="relative ml-3">
+            <div>
+              <Menu.Button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="white"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              </Menu.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5">
+                {[
+                  { label: "Home", path: "/" },
+                  { label: "Parent Login", path: "/parent_login" },
+                  { label: "Parent Register", path: "/parent_signup" },
+                  { label: "Teacher Login", path: "/login" },
+                  { label: "Teacher Signup", path: "/signup" },
+                ].map((item) => (
+                  <Menu.Item key={item.path}>
+                    {({ active }) => (
+                      <Link
+                        to={item.path}
+                        className={classNames(
+                          active ? "bg-blue-700 text-white" : "text-gray-800",
+                          "block px-4 py-2 text-sm"
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        </button>
+
+        {/* Desktop Menu */}
+        <ul className="hidden lg:flex space-x-6">
+          {[
+            { label: "Home", path: "/" },
+            { label: "Parent Login", path: "/parent_login" },
+            { label: "Parent Register", path: "/parent_signup" },
+            { label: "Teacher Login", path: "/login" },
+            { label: "Teacher Signup", path: "/signup" },
+          ].map((item) => (
+            <li
+              key={item.path}
+              onClick={() => navigate(item.path)}
+              className="text-sm font-medium text-white cursor-pointer hover:text-blue-400 transition"
+            >
+              {item.label}
+            </li>
+          ))}
+        </ul>
       </div>
-      <button className="sm:block md:block lg:hidden">
-        <Menu as="div" className="relative ml-3">
-          <div>
-            <Menu.Button className="">
-              <span className="sr-only">Open user menu</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="black"
-                class="w-6 h-6 outline outline-1 text-[#070be6] md  "
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-            </Menu.Button>
-          </div>
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-[#070be6] py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-cyan-600">
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    to="/"
-                    className={classNames(
-                      active
-                        ? ""
-                        : "",
-                      "block px-4 py-2 text-sm text-white"
-                    )}
-                  >
-                    Home
-                  </Link>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    to="/parent_login"
-                    className={classNames(
-                      active
-                        ? ""
-                        : "",
-                      "block px-4 py-2 text-sm text-white"
-                    )}
-                  >
-                    Parent Login
-                  </Link>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    to="/parent_signup"
-                    className={classNames(
-                      active
-                        ? ""
-                        : "",
-                      "block px-4 py-2 text-sm text-white"
-                    )}
-                  >
-                    Parent Register
-                  </Link>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    to="/login"
-                    className={classNames(
-                      active
-                        ? ""
-                        : "",
-                      "block px-4 py-2 text-sm text-white"
-                    )}
-                  >
-                    Teacher Login
-                  </Link>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    to="/signup"
-                    className={classNames(
-                      active
-                        ? ""
-                        : "",
-                      "block px-4 py-2 text-sm text-white"
-                    )}
-                  >
-                    Teacher Signup
-                  </Link>
-                )}
-              </Menu.Item>
-            </Menu.Items>
-          </Transition>
-        </Menu>
-      </button>
 
-      <ul className="lg:block lg:flex bg-[#070be6] rounded-md sm:hidden md:hidden hidden ">
-        <li onClick={() => navigate("/")} className="p-4 cursor-pointer">
-          Home
-        </li>
-        <li
-          onClick={() => navigate("/parent_login")}
-          className="p-4 cursor-pointer"
-        >
-          Parent Login
-        </li>
-        <li
-          onClick={() => navigate("/parent_signup")}
-          className="p-4 cursor-pointer"
-        >
-          Parent Register
-        </li>
-        <li onClick={() => navigate("/login")} className="p-4 cursor-pointer">
-          Teacher Login
-        </li>
-        <li onClick={() => navigate("/signup")} className="p-4 cursor-pointer">
-          Teacher Signup
-        </li>
-      </ul>
-
-
-    </div>
-    <div className="flex flex-col text-center w-full mb-8">
-          <span className="text-3xl font-bold text-[#070be6]">
-            All aboard for fun and learning
-          </span>
-        </div>
+      {/* Subtitle Section
+      <div className="flex flex-col text-center w-full py-6 bg-blue-50 shadow-md">
+        <span className="text-2xl font-bold text-blue-800">
+          All aboard for fun and learning!
+        </span>
+      </div> */}
     </>
   );
 };

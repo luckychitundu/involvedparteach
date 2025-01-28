@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import icon from "../Home/assets/parent with kids.png";
 import { TeacherContext } from "../Context/teacher-context";
 import Nav from "../Home/Nav";
 import "./signup.css";
@@ -11,96 +10,145 @@ function Signup() {
   const { onSubmition, modal } = useContext(TeacherContext);
 
   return (
-    <div>
-      <div className="w-screen h-screen bg-[#B124A3]">
-        <Nav />
-        <hr className="border border-1"></hr>
-        <div className="flex justify-center">
-          <div className="main-container bg-white">
-            <div className="card-one sm:block hidden">
-              <img src={icon} alt="image" />
-              <h2 className="text">InvolvEd Teacher</h2>
-              <h2 className="text2">
-                Have an account?{" "}
-                <Link to="/login" style={{ color: "#B124A3" }}>
-                  Login Here
-                </Link>
-              </h2>
-            </div>
-            <div className="bg-white w-full m-3">
-              <h2 className="text-2xl text-center m-2 bold">Teacher Registration</h2>
+    <>
+     <Nav />
+    <div className="w-screen min-h-screen flex flex-col bg-blue-600">
+     
+      <div className="flex justify-center mt-10 flex-grow">
+        <div className="bg-white w-full sm:w-96 rounded-xl p-8 shadow-lg">
+          {/* Logo and heading */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-extrabold text-white">InvolvEd</h1>
+            <h2 className="text-2xl font-semibold">Teacher Registration</h2>
+            <p className="text-sm text-gray-400">Fill in the details to create your account</p>
+          </div>
 
-              {modal ? <div className="text-center text-white italic bg-[#B124A3] rounded-md">Signup successful</div> : null}
-              <form
-                className="grid grid-cols-1 gap-3 m-10"
-                onSubmit={handleSubmit(onSubmition)}>
-                <input
-                  id="first_name"
-                  className="border rounded-md p-2"
-                  type="text"
-                  name="first_name"
-                  placeholder="Enter your first name..."
-                  {...register("first_name")}
-                />
-                <input
-                  id="career_name"
-                  className="border rounded-md p-2"
-                  type="text"
-                  name="career_name"
-                  placeholder="Enter your career name..."
-                  {...register("career_name")}
-                />
-                <input
-                  id="last_name"
-                  className="border rounded-md p-2"
-                  type="text"
-                  name="last_name"
-                  placeholder="Enter your last name..."
-                  {...register("last_name")}
-                />
-                <input
-                  id="email"
-                  className="border rounded-md p-2"
-                  type="text"
-                  name="email"
-                  placeholder="Enter your email..."
-                  {...register("email")}
-                />
-                <input
-                  id="phone_number"
-                  className="border rounded-md p-2"
-                  type="number"
-                  name="phone_number"
-                  placeholder="Enter your phone number..."
-                  {...register("phone_number")}
-                />
-                <input
-                  id="password"
-                  className="border rounded-md p-2"
-                  type="password"
-                  name="password"
-                  placeholder="Enter your password..."
-                  {...register("password")}
-                />
-                <input
-                  id="gender"
-                  className="border rounded-md p-2"
-                  type="text"
-                  name="gender"
-                  placeholder="Enter your gender..."
-                  {...register("gender")}
-                />
-                <button
-                  className="px-5 p-3 bg-[#B124A3] text-white rounded-md"
-                  type="submit">
-                  Register
-                </button>
-              </form>
+          {/* Form */}
+          <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmition)}>
+            {/* Input fields */}
+            <div>
+              <label className="block text-sm font-semibold">First Name</label>
+              <input
+                id="first_name"
+                className="w-full border rounded-md p-3"
+                type="text"
+                name="first_name"
+                placeholder="Enter your first name"
+                {...register("first_name")}
+                required
+              />
             </div>
+
+            <div>
+              <label className="block text-sm font-semibold">Career Name</label>
+              <input
+                id="career_name"
+                className="w-full border rounded-md p-3"
+                type="text"
+                name="career_name"
+                placeholder="Enter your career name"
+                {...register("career_name")}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold">Last Name</label>
+              <input
+                id="last_name"
+                className="w-full border rounded-md p-3"
+                type="text"
+                name="last_name"
+                placeholder="Enter your last name"
+                {...register("last_name")}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold">Email</label>
+              <input
+                id="email"
+                className="w-full border rounded-md p-3"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                {...register("email")}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold">Phone Number</label>
+              <input
+                id="phone_number"
+                className="w-full border rounded-md p-3"
+                type="number"
+                name="phone_number"
+                placeholder="Enter your phone number"
+                {...register("phone_number")}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold">Password</label>
+              <input
+                id="password"
+                className="w-full border rounded-md p-3"
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                {...register("password")}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold">Gender</label>
+              <input
+                id="gender"
+                className="w-full border rounded-md p-3"
+                type="text"
+                name="gender"
+                placeholder="Enter your gender"
+                {...register("gender")}
+                required
+              />
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex justify-center mt-6">
+              <button
+                className="w-full bg-blue-600 text-white py-3 rounded-md"
+                type="submit"
+              >
+                Register
+              </button>
+            </div>
+          </form>
+
+          {/* Login Link */}
+          <div className="text-center mt-4">
+            <p className="text-sm text-gray-500">
+              Already have an account?{" "}
+              <Link to="/login" className="text-blue-600 font-semibold">
+                Login Here
+              </Link>
+            </p>
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <div className="border-t border-gray-700 pt-6 pb-4 mt-auto text-center">
+        <p className="text-sm text-white">
+          <a href="#" className="hover:underline">Terms of Service</a> |{" "}
+          <a href="#" className="hover:underline">Privacy Policy</a>
+        </p>
+      </div>
     </div>
+    </>
   );
 }
 
