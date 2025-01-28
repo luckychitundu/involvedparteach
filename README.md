@@ -6,7 +6,7 @@ InvolvEd is a web-based kindergarten management portal designed to streamline co
 
 Below is a preview of the landing page:
 
-![Landing Page Preview](./assets/readmeImage.png)
+![Landing Page Preview](./frontend/src/App/components/Home/assets/readmeImage.png)
 
 ## Features
 
