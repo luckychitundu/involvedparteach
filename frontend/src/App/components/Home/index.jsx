@@ -3,6 +3,7 @@ import Nav from "../Home/Nav";
 import Homepage from "./Homepage";
 import Reviews from "../Home/Reviews";
 import Footer from "../Home/Footer";
+import TrustedBySchools from "./TrustedBySchools.jsx";
 
 function Home() {
   return (
@@ -11,6 +12,7 @@ function Home() {
       <div>
       <Nav />
       <Homepage />
+      <TrustedBySchools />
       <Reviews />
       </div>
       <div>

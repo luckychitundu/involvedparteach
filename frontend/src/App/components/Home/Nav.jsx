@@ -17,10 +17,10 @@ const Navbar = () => {
         {/* Logo Section */}
         <div>
           <a href="/">
-          <h1 className="text-3xl font-extrabold text-white tracking-wide">
-            InvolvEd.
-          </h1>
-          </a>         
+            <h1 className="text-3xl font-extrabold text-white tracking-wide">
+              InvolvEd.
+            </h1>
+          </a>
 
           <h2 className="text-xs font-medium tracking-widest text-blue-200">
             Kindergarten Management Portal
@@ -64,6 +64,7 @@ const Navbar = () => {
                   { label: "Parent Register", path: "/parent_signup" },
                   { label: "Teacher Login", path: "/login" },
                   { label: "Teacher Signup", path: "/signup" },
+                  { label: "About", path: "/about" },  {/* Moved About link to last */}
                 ].map((item) => (
                   <Menu.Item key={item.path}>
                     {({ active }) => (
@@ -92,6 +93,7 @@ const Navbar = () => {
             { label: "Parent Register", path: "/parent_signup" },
             { label: "Teacher Login", path: "/login" },
             { label: "Teacher Signup", path: "/signup" },
+            { label: "About", path: "/about" },  {/* Moved About link to last */}
           ].map((item) => (
             <li
               key={item.path}
@@ -104,8 +106,8 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Subtitle Section
-      <div className="flex flex-col text-center w-full py-6 bg-blue-50 shadow-md">
+      {/* Subtitle Section */}
+      {/* <div className="flex flex-col text-center w-full py-6 bg-blue-50 shadow-md">
         <span className="text-2xl font-bold text-blue-800">
           All aboard for fun and learning!
         </span>

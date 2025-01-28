@@ -23,6 +23,7 @@ import TeacherWelcome from "./components/Dashboard/Welcome";
 import SingleStudent from "./components/Dashboard/KidsList/SingleStudent";
 import AddCase from "./components/Modal/AddCase";
 import AddKid from "./components/Dashboard/AddKid";
+import AboutUs from "./components/Home/AboutUs";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/parent_login" element={<ParentLogin />} />
           <Route path="/parent_signup" element={<ParentSignup />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="dashboard" element={<Dashboard />}>
           <Route path="addcase" element={<AddCase/>}/>
             <Route path="" element={<TeacherWelcome />} />
