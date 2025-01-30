@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from "react";
-import landing from "./assets/landing.mp4";
+import inv1 from "./assets/inv1.jpg"; // Replace with your image paths
+import inv2 from "./assets/inv2.jpg";
+import inv3 from "./assets/inv3.jpg";
 
 function Homepage() {
+  const [currentImage, setCurrentImage] = useState(0);
+  const images = [inv1, inv2, inv3]; // Array of image paths
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length); // Cycle through images
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(intervalId); // Clean up the interval on unmount
+  }, []);
+
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Background Video with Overlay */}
+      {/* Background Image with Overlay */}
       <div className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out">
-        <video
-          src={landing}
-          autoPlay
-          loop
-          muted
+        <img
+          src={images[currentImage]}
+          alt="Background"
           className="object-cover w-full h-full"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/80"></div>
